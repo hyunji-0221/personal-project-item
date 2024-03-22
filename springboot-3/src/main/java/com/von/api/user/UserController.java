@@ -1,5 +1,6 @@
 package com.von.api.user;
 
+import com.von.api.enums.Messenger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +11,14 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl service;
+    private final UserRepository repo;
 
-    @GetMapping("/login")
-    public String hello(){
-        return "welcom";
-    }
+//    @GetMapping("/name")
+//    public String hello(){
+//        return "welcom";
+//    }
 
-    @PostMapping("/username")
+    @PostMapping("/api/login")
     public Map<String,?> name(@RequestBody Map<String,?> map){
         String name = (String)map.get("username");
         System.out.println("request가 가져온 이름 : "+name);
@@ -26,6 +27,21 @@ public class UserController {
         return respMap;
     }
 
+    @PostMapping(path = "/api/users")
+    public Map<String ,?> join(@RequestBody Map<?,?> map){
+        User newUser = repo.save(User.builder()
+                .userName((String) map.get("userId"))
+                .password((String) map.get("password"))
+                .name((String) map.get("name"))
+                .pNum((String) map.get("pNum"))
+                .job((String) map.get("job"))
+                .build());
+
+        System.out.println("DB에 저장된 user 정보 : "+ newUser);
+        Map<String, Messenger> respMap = new HashMap<>();
+        respMap.put("result",Messenger.SUCCESS);
+        return respMap;
+    }
 
     public Map<String,?> save(@RequestBody Map<String,?> map) {
                 return null;
