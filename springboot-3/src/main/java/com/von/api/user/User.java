@@ -16,17 +16,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Long id;
-    private String userName;
+    private String username;
     private String password;
     private String name;
     private String pNum;
     private String job;
 
     @Builder(builderMethodName = "builder")
-    public User(Long id, String userName, String password
+    public User(Long id, String username, String password
             , String name, String pNum, String job) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.name = name;
         this.pNum = pNum;
