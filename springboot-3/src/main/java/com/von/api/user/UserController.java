@@ -13,26 +13,24 @@ import java.util.*;
 public class UserController {
     private final UserRepository repo;
 
-    @PostMapping("/api/login")
+    @PostMapping("/api/users/login")
     public Map<String, ?> name(@RequestBody Map<?, ?> map) {
-        Map<String, Messenger> respMap = new HashMap<>();
+        Map<String,Messenger> respMap = new HashMap<>();
         String username = (String) map.get("username");
         String password = (String) map.get("password");
-        User optUser = repo.findByUsername(username).orElse(null);
+        User dbUser = repo.findByUsername(username).orElse(null);
 
-        if (optUser == null) {
-            respMap.put("result", Messenger.FAIL);
-        } else if (!optUser.getPassword().equals(password)) {
-            respMap.put("result", Messenger.WRONG_PASSWORD);
-        } else {
-            respMap.put("result", Messenger.SUCCESS);
+        if(dbUser==null){
+            respMap.put("result",Messenger.FAIL);
+        }else if (!dbUser.getPassword().equals(password)){
+            respMap.put("result",Messenger.WRONG_PASSWORD);
+        }else{
+            respMap.put("result",Messenger.SUCCESS);
         }
-
-        System.out.println("User is " + optUser);
         return respMap;
     }
 
-    @PostMapping(path = "/api/users")
+    @PostMapping(path = "/api/users/join")
     public Map<String, ?> join(@RequestBody Map<?, ?> map) {
         User newUser = repo.save(User.builder().username((String) map.get("userId")).password((String) map.get("password")).name((String) map.get("name")).pNum((String) map.get("pNum")).job((String) map.get("job")).build());
 
