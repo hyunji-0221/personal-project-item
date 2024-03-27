@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ArticleServiceImpl extends AbstractService<Article> implements ArticleService {
+public class ArticleServiceImpl extends AbstractService<Article>{
+    private final ArticleRepository repo;
     @Override
     public Messenger save(Article article) {
         return null;
@@ -19,7 +20,7 @@ public class ArticleServiceImpl extends AbstractService<Article> implements Arti
 
     @Override
     public List<Article> findAll() throws SQLException {
-        return null;
+        return repo.findAll();
     }
 
     @Override

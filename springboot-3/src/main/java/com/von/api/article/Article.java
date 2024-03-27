@@ -19,14 +19,14 @@ public class Article {
     private String title;
     private String content;
     private String writer;
-    private Date postDate;
+    private String postdate;
 
     @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, String writer, Date postDate) {
+    public Article(Long id, String title, String content, String writer, String postdate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.postDate = postDate;
+        this.postdate = postdate;
     }
 }

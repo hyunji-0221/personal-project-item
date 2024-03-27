@@ -1,18 +1,28 @@
 package com.von.api.article;
 
-import com.von.api.account.AccountServiceImpl;
+import com.von.api.enums.Messenger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class ArticleController {
-    private final AccountServiceImpl service;
+    private final ArticleServiceImpl service;
+    @GetMapping("/api/articles")
+    public Map<?, ?> findAll() throws SQLException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", Messenger.SUCCESS);
+//        @SuppressWarnings("unchecked")
+        List<Article> list = service.findAll();
+        map.put("result", list);
 
-    public List<Article> findAll() throws SQLException {
-        return null;
+        return map;
     }
 }

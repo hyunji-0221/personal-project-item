@@ -21,11 +21,11 @@ public class UserController {
         User dbUser = repo.findByUsername(username).orElse(null);
 
         if(dbUser==null){
-            respMap.put("result",Messenger.FAIL);
+            respMap.put("message",Messenger.FAIL);
         }else if (!dbUser.getPassword().equals(password)){
-            respMap.put("result",Messenger.WRONG_PASSWORD);
+            respMap.put("message",Messenger.WRONG_PASSWORD);
         }else{
-            respMap.put("result",Messenger.SUCCESS);
+            respMap.put("message",Messenger.SUCCESS);
         }
         return respMap;
     }
@@ -36,7 +36,7 @@ public class UserController {
 
         System.out.println("DB에 저장된 user 정보 : " + newUser);
         Map<String, Messenger> respMap = new HashMap<>();
-        respMap.put("result", Messenger.SUCCESS);
+        respMap.put("message", Messenger.SUCCESS);
         return respMap;
     }
 
